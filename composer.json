@@ -1,0 +1,27 @@
+{
+    "name": "xenosuter/number-theory-core",
+    "description": "A PHP library for number theory utilities, including algorithms for GCD, modular arithmetic, and primes.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Xenosuter\\NumberTheoryCore\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Xeno Suter",
+            "email": "info@xeno.li"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "11.5.2"
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "phpunit"
+    }
+}
