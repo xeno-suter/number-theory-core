@@ -11,9 +11,11 @@
  * @author Xeno Suter
  */
 
-namespace Xenosuter\NumberTheoryCore\Algorithms;
+namespace Xenosuter\NumberTheoryCore\Algorithms\BinaryGcd\Euclidean;
 
-class Euclidean
+use Xenosuter\NumberTheoryCore\Contracts\NumberTheoryAlgorithmInterface;
+
+class Euclidean implements NumberTheoryAlgorithmInterface
 {
     /**
      * Computes the Greatest Common Divisor (GCD) of two integers using the ExtendedEuclidean algorithm.
@@ -23,12 +25,17 @@ class Euclidean
      * The non-zero number at that point is the GCD. The absolute value of the result is returned to ensure
      * it is always positive.
      *
-     * @param int $a The first integer
-     * @param int $b The second integer
+     * @param int ...$args The two integers for which the GCD is to be computed.
      * @return int The greatest common divisor of the two integers
      */
-    public static function gcd(int $a, int $b): int
+    public static function execute(int ...$args): int
     {
+        if (count($args) !== 2) {
+            throw new \InvalidArgumentException("Euclidean algorithm requires exactly 2 integers.");
+        }
+
+        [$a, $b] = $args;
+
         while ($b !== 0) {
             [$a, $b] = [$b, $a % $b];
         }

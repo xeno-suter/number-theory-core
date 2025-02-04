@@ -10,9 +10,11 @@
  * @author Xeno Suter
  */
 
-namespace Xenosuter\NumberTheoryCore\Algorithms;
+namespace Xenosuter\NumberTheoryCore\Algorithms\BinaryGcd\Euclidean;
 
-class ExtendedEuclidean
+use Xenosuter\NumberTheoryCore\Contracts\NumberTheoryAlgorithmInterface;
+
+class ExtendedEuclidean implements NumberTheoryAlgorithmInterface
 {
     /**
      * Computes the Greatest Common Divisor (GCD) of two integers using the Extended Euclidean algorithm.
@@ -22,12 +24,16 @@ class ExtendedEuclidean
      * These coefficients are useful in applications such as finding modular inverses.
      * The algorithm follows an iterative approach to avoid deep recursion, making it more efficient.
      *
-     * @param int $a The first integer.
-     * @param int $b The second integer.
+     * @param int ...$args
      * @return array An array containing the GCD, x, and y: [gcd, x, y].
      */
-    public static function compute(int $a, int $b): array
+    public static function execute(int ...$args): array
     {
+        if (count($args) !== 2) {
+            throw new \InvalidArgumentException("Extended Euclidean algorithm requires exactly 2 integers.");
+        }
+
+        [$a, $b] = $args;
         $x = 0;
         $y = 1;
         $lastX = 1;
@@ -35,9 +41,7 @@ class ExtendedEuclidean
 
         while ($b !== 0) {
             $quotient = intdiv($a, $b);
-
             [$a, $b] = [$b, $a % $b];
-
             [$x, $lastX] = [$lastX - $quotient * $x, $x];
             [$y, $lastY] = [$lastY - $quotient * $y, $y];
         }
